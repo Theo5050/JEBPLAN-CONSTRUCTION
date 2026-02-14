@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Certifications - JEBP Construction</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Certificate Gallery Styles */
+        .certifications-hero {
+            background: linear-gradient(rgba(26, 76, 122, 0.9), rgba(26, 76, 122, 0.9)),
+                        url('https://images.unsplash.com/photo-1541976844346-f18aeac57b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        .certifications-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .certifications-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .gallery-section {
+            padding: 4rem 0;
+            background: var(--light);
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .gallery-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .cert-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--secondary);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item .cert-info {
+            padding: 1.5rem;
+            text-align: center;
+            background: white;
+        }
+
+        .gallery-item .cert-info h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .gallery-item .cert-info p {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .cert-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        /* Lightbox Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            overflow: auto;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+            border: 3px solid var(--secondary);
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10000;
+        }
+
+        .close:hover {
+            color: var(--secondary);
+        }
+
+        .modal-caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: white;
+            padding: 10px 0;
+            font-size: 1.2rem;
+        }
+
+        /* Certificate Stats */
+        .cert-stats {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .cert-stats .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: block;
+        }
+
+        .cert-stats .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .cert-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>JEBP<span>Construction</span></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="certifications.html" class="active">Certifications</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="certifications-hero">
+        <div class="container">
+            <h1>Our Professional Certifications</h1>
+            <p>Recognized excellence in construction and building services</p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="cert-stats">
+        <div class="container">
+            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                <div class="stat-item">
+                    <span class="stat-number">23</span>
+                    <span class="stat-label">Professional Certifications</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4+</span>
+                    <span class="stat-label">Years of Excellence</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Completed Projects</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-header">
+                <h2>Our Certificate Gallery</h2>
+                <p>Browse through our collection of professional certifications and memberships</p>
+            </div>
+
+            <div class="cert-gallery" id="certGallery">
+                <!-- Certificates will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>JEBP<span>Construction</span></h3>
+                    <p>Quality construction services in Accra, Ghana since 2020.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="certifications.html">Certifications</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Kwabenya Main Road, Accra, Ghana</li>
+                        <li><i class="fas fa-phone"></i> +233 24 031 1953</li>
+                        <li><i class="fas fa-envelope"></i> info@jebpconstruction.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JEBP Construction. All rights reserved. | Founded by Justice Essoun Baah</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Certificate Data - Generate for 23 images
+        const certificates = [];
+        for (let i = 1; i <= 23; i++) {
+            certificates.push({
+                id: i,
+                filename: `certificate ${i}.jpg`,
+                title: `Professional Certificate ${i}`,
+                category: i <= 2 ? 'Member Certificate' : 'Professional Certification'
+            });
+        }
+
+        // Special titles for the first two certificates
+        if (certificates.length >= 2) {
+            certificates[0].title = '中国建筑装饰协会会员单位';
+            certificates[0].subtitle = 'China Building Decoration Association Member';
+            certificates[1].title = '中国建筑装饰装修行业协会会员单位';
+            certificates[1].subtitle = 'China Building Decoration Association Member';
+        }
+
+        // Load certificates into gallery
+        function loadCertificates() {
+            const gallery = document.getElementById('certGallery');
+            if (!gallery) return;
+
+            gallery.innerHTML = certificates.map(cert => `
+                <div class="gallery-item" onclick="openModal('images/${cert.filename}', '${cert.title}')">
+                    <img src="images/${cert.filename}" alt="${cert.title}" loading="lazy">
+                    <div class="cert-info">
+                        <h3>${cert.title}</h3>
+                        ${cert.subtitle ? `<p>${cert.subtitle}</p>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal functions
+        function openModal(imageSrc, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modal.style.display = "block";
+            modalImg.src = imageSrc;
+            modalCaption.innerHTML = caption;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = "none";
+        }
+
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadCertificates);
+    </script>
+</body>
+</html>
