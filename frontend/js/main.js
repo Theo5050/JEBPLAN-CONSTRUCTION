@@ -56,6 +56,13 @@ async function loadTeam() {
     try {
         const response = await fetch(`${API_BASE}/team`);
         const team = await response.json();
+        
+        console.log('Team data:', team); // Add this to debug
+
+        if (team.length === 0) {
+            teamGrid.innerHTML = '<p>No team members found.</p>';
+            return;
+        }
 
         teamGrid.innerHTML = team.map(member => `
             <div class="team-card">
@@ -65,9 +72,9 @@ async function loadTeam() {
                     <span class="team-position">${member.position}</span>
                     <p class="team-bio">${member.bio}</p>
                     <div class="team-social">
-                        ${member.social.linkedin ? `<a href="${member.social.linkedin}"><i class="fab fa-linkedin"></i></a>` : ''}
-                        ${member.social.twitter ? `<a href="${member.social.twitter}"><i class="fab fa-twitter"></i></a>` : ''}
-                        <a href="mailto:${member.social.email}"><i class="fas fa-envelope"></i></a>
+                        ${member.social?.linkedin ? `<a href="${member.social.linkedin}"><i class="fab fa-linkedin"></i></a>` : ''}
+                        ${member.social?.twitter ? `<a href="${member.social.twitter}"><i class="fab fa-twitter"></i></a>` : ''}
+                        <a href="mailto:${member.social?.email || ''}"><i class="fas fa-envelope"></i></a>
                     </div>
                     ${member.founder ? '<span class="founder-tag">Founder</span>' : ''}
                 </div>
@@ -75,9 +82,7 @@ async function loadTeam() {
         `).join('');
     } catch (error) {
         console.error('Error loading team:', error);
-        if (teamGrid) {
-            teamGrid.innerHTML = '<p>Unable to load team members. Please try again later.</p>';
-        }
+        teamGrid.innerHTML = '<p>Unable to load team members. Please try again later.</p>';
     }
 }
 
