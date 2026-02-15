@@ -1,5 +1,7 @@
 // API Base URL
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = window.location.hostname === 'localhost' 
+  ? 'http://localhost:5000/api'
+  : 'https://jebp-construction-api-twq3.onrender.com/api';
 
 // Mobile Menu Toggle
 const hamburger = document.querySelector('.hamburger');
