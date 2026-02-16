@@ -50,7 +50,6 @@ async function loadServices() {
     }
 }
 
-// Load Team Members
 async function loadTeam() {
     const teamGrid = document.getElementById('teamGrid');
     if (!teamGrid) return;
