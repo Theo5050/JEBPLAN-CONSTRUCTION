@@ -22,6 +22,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use('/api/services', require('./routes/services'));
 app.use('/api/team', require('./routes/team'));
 app.use('/api/contact', require('./routes/contact'));
+app.use('/api/payments', require('./routes/payment'));
 
 // Serve frontend
 app.get('*', (req, res) => {

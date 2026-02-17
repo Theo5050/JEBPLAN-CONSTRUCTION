@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - JEBPLAN Construction</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .success-container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 2rem;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .details {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .details p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .reference {
+            font-family: monospace;
+            background: #eee;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (simplified) -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>JEBPLAN<span>Construction</span></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="success-container">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            
+            <h2>Payment Successful! </h2>
+            <p>Thank you for your payment. Your transaction has been completed successfully.</p>
+            
+            <div class="details" id="paymentDetails">
+                <p><strong>Reference:</strong> <span class="reference" id="reference">Loading...</span></p>
+                <p><strong>Amount:</strong> <span id="amount">Loading...</span></p>
+                <p><strong>Status:</strong> <span style="color: #28a745;">✅ Completed</span></p>
+            </div>
+            
+            <p>We'll process your order shortly. A confirmation email has been sent to your inbox.</p>
+            
+            <div class="btn-group">
+                <a href="services.html" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i> Continue Shopping
+                </a>
+                <a href="index.html" class="btn btn-secondary">
+                    <i class="fas fa-home"></i> Return Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get reference from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const reference = urlParams.get('ref') || urlParams.get('reference');
+        
+        if (reference) {
+            document.getElementById('reference').textContent = reference;
+            
+            // Fetch payment details from backend
+            fetch(`/api/payments/${reference}`)
+                .then(response => response.json())
+                .then(payment => {
+                    if (payment.amount) {
+                        document.getElementById('amount').textContent = 
+                            `GHS ${payment.amount.toFixed(2)}`;
+                    }
+                })
+                .catch(error => console.error('Error fetching payment:', error));
+        } else {
+            document.getElementById('reference').textContent = 'Completed';
+        }
+    </script>
+</body>
+</html>

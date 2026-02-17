@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Payment - JEBPLAN Construction</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .payment-container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .payment-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .payment-header h2 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .payment-header p {
+            color: #666;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .payment-methods img {
+            height: 35px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .payment-methods img:hover {
+            opacity: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+        
+        .payment-btn {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .payment-btn:hover {
+            background: var(--secondary);
+        }
+        
+        .payment-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .fee-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .quick-amounts {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .quick-amount {
+            background: var(--light);
+            border: 1px solid #ddd;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .quick-amount:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>JEBPLAN<span>Construction</span></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="certifications.html">Certifications</a></li>
+                <li><a href="payment.html" class="active">Pay Online</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="payment-container">
+            <div class="payment-header">
+                <h2>Pay Online Securely</h2>
+                <p>Pay via Mobile Money, Cards, or Bank Transfer</p>
+                <div class="payment-methods">
+                    <img src="https://paystack.com/assets/img/logos/mtn-momo.svg" alt="MTN MoMo">
+                    <img src="https://paystack.com/assets/img/logos/vodafone-cash.svg" alt="Vodafone Cash">
+                    <img src="https://paystack.com/assets/img/logos/visa.svg" alt="Visa">
+                    <img src="https://paystack.com/assets/img/logos/mastercard.svg" alt="Mastercard">
+                </div>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" placeholder="Justice Essoun Baah" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" placeholder="justice@jebplanconstruction.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="024 XXX XXXX">
+                </div>
+                
+                <div class="form-group">
+                    <label for="service">Payment For</label>
+                    <select id="service">
+                        <option value="Scaffold Rental">Scaffold Rental</option>
+                        <option value="Scaffold Wholesale">Scaffold Wholesale</option>
+                        <option value="Exterior Door">Exterior Door</option>
+                        <option value="Interior Door">Interior Door</option>
+                        <option value="Glass Door">Glass Door</option>
+                        <option value="Door Accessories">Door Accessories</option>
+                        <option value="Deposit">Deposit</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Amount (GHS) *</label>
+                    <div class="quick-amounts">
+                        <span class="quick-amount" data-amount="500">GHS 500</span>
+                        <span class="quick-amount" data-amount="1000">GHS 1,000</span>
+                        <span class="quick-amount" data-amount="2500">GHS 2,500</span>
+                        <span class="quick-amount" data-amount="5000">GHS 5,000</span>
+                    </div>
+                    <input type="number" id="amount" placeholder="e.g., 2500" min="1" step="0.01" required>
+                </div>
+
+                <button type="submit" class="payment-btn" id="payBtn">
+                    Pay with Paystack
+                </button>
+                
+                <div class="fee-note">
+                    <i class="fas fa-lock"></i> Secure payment. 1.95% transaction fee applies [citation:2]
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 2rem;">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>JEBPLAN<span>Construction</span></h3>
+                    <p>Quality construction services in Accra, Ghana since 2020.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="team.html">Team</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-phone"></i> +233 24 031 1953</li>
+                        <li><i class="fas fa-envelope"></i> info@jebplanconstruction.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Quick amount buttons
+        document.querySelectorAll('.quick-amount').forEach(button => {
+            button.addEventListener('click', () => {
+                document.getElementById('amount').value = button.dataset.amount;
+            });
+        });
+
+        // Payment form submission
+        const paymentForm = document.getElementById('paymentForm');
+        const payBtn = document.getElementById('payBtn');
+        const errorMessage = document.getElementById('errorMessage');
+
+        paymentForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Hide any previous error
+            errorMessage.classList.remove('show');
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const service = document.getElementById('service').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            // Validate
+            if (!name || !email || !amount) {
+                errorMessage.textContent = 'Please fill in all required fields';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            if (amount < 1) {
+                errorMessage.textContent = 'Amount must be at least GHS 1';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            // Disable button to prevent double submission
+            payBtn.disabled = true;
+            payBtn.textContent = 'Processing...';
+
+            try {
+                // Initialize payment with our backend
+                const response = await fetch('/api/payments/initialize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        phone,
+                        service,
+                        amount
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.status && data.data.authorization_url) {
+                    // Redirect to Paystack checkout
+                    window.location.href = data.data.authorization_url;
+                } else {
+                    throw new Error(data.error || 'Failed to initialize payment');
+                }
+
+            } catch (error) {
+                console.error('Payment error:', error);
+                errorMessage.textContent = error.message || 'Failed to process payment. Please try again.';
+                errorMessage.classList.add('show');
+                payBtn.disabled = false;
+                payBtn.textContent = 'Pay with Paystack';
+            }
+        });
+    </script>
+</body>
+</html>
