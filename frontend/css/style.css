@@ -684,3 +684,213 @@ footer {
         text-align: center;
     }
 }
+
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero,
+.services-preview,
+.about-preview,
+.team-section,
+.certifications-section,
+.contact-section {
+    animation: fadeIn 1s ease-out;
+}
+
+/* Staggered animations for cards */
+.service-card,
+.team-card,
+.door-card,
+.cert-card {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.service-card:nth-child(1),
+.team-card:nth-child(1),
+.door-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.service-card:nth-child(2),
+.team-card:nth-child(2),
+.door-card:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.service-card:nth-child(3),
+.team-card:nth-child(3),
+.door-card:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.service-card:nth-child(4),
+.team-card:nth-child(4),
+.door-card:nth-child(4) {
+    animation-delay: 0.7s;
+}
+
+
+/* Scale effect on hover */
+.service-card:hover,
+.team-card:hover,
+.door-card:hover,
+.cert-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Button hover effect */
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+
+.door-image {
+    overflow: hidden;
+}
+
+.door-image img {
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.door-image:hover img {
+    transform: scale(1.1);
+}
+
+/* For certification gallery */
+.gallery-item img {
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.btn-primary {
+    animation: pulse 2s infinite;
+}
+
+/* Stop pulse on hover */
+.btn-primary:hover {
+    animation: none;
+}
+
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.stat-item:nth-child(odd) {
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.stat-item:nth-child(even) {
+    animation: slideInRight 0.8s ease-out;
+}
+
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.door-image:empty,
+.cert-image:empty {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 2000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Optional: Highlight effect when scrolling to sections */
+section:target {
+    animation: highlight 2s ease;
+}
+
+@keyframes highlight {
+    0% {
+        background-color: rgba(230, 184, 0, 0.1);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+
+.nav-menu a {
+    position: relative;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--secondary);
+    transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.active::after {
+    width: 100%;
+}
