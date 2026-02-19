@@ -48,7 +48,7 @@ router.post('/initialize', async (req, res) => {
             params,
             {
                 headers: {
-                    Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+                    Authorization: `Bearer ${process.env.sk_test_5273c830038503f182e54e3da24918f8c734be75}`,
                     'Content-Type': 'application/json'
                 }
             }
@@ -95,7 +95,7 @@ router.get('/verify/:reference', async (req, res) => {
             `https://api.paystack.co/transaction/verify/${reference}`,
             {
                 headers: {
-                    Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
+                    Authorization: `Bearer ${process.env.sk_test_5273c830038503f182e54e3da24918f8c734be75}`
                 }
             }
         );
