@@ -59,10 +59,10 @@ router.post('/seed', async (req, res) => {
                 price: 'From GHS 100'
             },
             {
-                name: 'Bathroom and Kitchen Accessories',
+                name: 'Bathroom and Kitchen Poduct',
                 description: 'Wide selection of bathroom and kitchen accessories to enhance your space. Stylish and functional.',
                 icon: 'fas fa-bath',        
-                category: 'bathroom-kitchen-accessories',
+                category: 'bathroom-kitchen-product',
                 features: ['Jaccuzi', 'water closet', 'Faucets & Sinks', 'Cabinet Hardware'],
                 price: 'From GHS 1500'
             },

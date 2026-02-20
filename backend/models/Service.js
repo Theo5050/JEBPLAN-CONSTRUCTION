@@ -16,7 +16,7 @@ const ServiceSchema = new mongoose.Schema({
     image: String,
     category: {
         type: String,
-        enum: ['scaffold-wholesale', 'scaffold-rental', 'security-doors', 'door-accessories', 'bathroom-kitchen-accessories'],
+        enum: ['scaffold-wholesale', 'scaffold-rental', 'security-doors', 'door-accessories', 'bathroom-kitchen-product'],
         required: true
     },
     price: String,
