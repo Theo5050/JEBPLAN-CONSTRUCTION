@@ -23,6 +23,7 @@ app.use('/api/services', require('./routes/services'));
 app.use('/api/team', require('./routes/team'));
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/payments', require('./routes/payment'));
+app.use('/api/admin', require('./routes/admin'));
 
 // Serve frontend
 app.get('*', (req, res) => {
