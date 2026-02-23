@@ -85,7 +85,7 @@ Glass Doors: Modern tempered glass doors
 
 Bathroom Products: WCs, sinks, taps, jacuzzis
 
- Payment
+ Payment (TEST MODE)
 MTN Mobile Money
 
 Vodafone Cash
